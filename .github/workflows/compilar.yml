@@ -37,7 +37,8 @@ jobs:
       run: |
         mkdir -p ~/mistos
         cd ~/mistos
-        repo init -u https://github.com/Project-Mist-OS/manifest.git -b sixteen --depth=1
+        # Comando oficial exacto extraído de tu captura
+        repo init -u https://github.com/Project-Mist-OS/manifest -b 16.2 --git-lfs --depth=1
 
     - name: Sincronizar Código Fuente (Sync)
       run: |
@@ -61,6 +62,7 @@ jobs:
     - name: Compilar la ROM MistOS
       run: |
         cd ~/mistos
+        # Comandos oficiales de construcción de tu captura
         . build/envsetup.sh
-        lunch mist_r8q-userdebug
-        mka bacon -j$(nproc --all)
+        mistify r8q userdebug
+        mist b
