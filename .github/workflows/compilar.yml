@@ -44,10 +44,23 @@ jobs:
         cd ~/mistos
         repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 
-    - name: Descargar Trees del S20 FE
+    - name: Descargar Trees del S20 FE (r8q)
       run: |
-        echo "Pronto pondremos los clones aquí"
+        cd ~/mistos
+        rm -rf hardware/samsung/
+        git clone https://github.com/JoelLucas/android_device_samsung_r8q -b bka-q2 device/samsung/r8q/
+        git clone https://github.com/JoelLucas/android_device_samsung_sm8250-common -b bka-q2 device/samsung/sm8250-common/
+        git clone https://github.com/JoelLucas/proprietary_vendor_samsung_r8q -b bka-q2 vendor/samsung/r8q/
+        git clone https://github.com/JoelLucas/proprietary_vendor_samsung_sm8250-common -b bka-q2 vendor/samsung/sm8250-common/
+        git clone https://github.com/JoelLucas/vendor_xiaomi_GoogleCamera -b sixteen vendor/xiaomi/GoogleCamera/
+        git clone https://github.com/JoelLucas/android_kernel_samsung_sm8250 -b bka-q2 kernel/samsung/sm8250/
+        git clone https://github.com/JoelLucas/android_hardware_samsung -b bka-q2 hardware/samsung/
+        git clone https://github.com/JoelLucas/android_hardware_samsung_nfc -b bka-q2 hardware/samsung/nfc/
+        git clone https://github.com/JoelLucas/android_hardware_samsung_slsi_nfc -b bka-q2 hardware/samsung_slsi/nfc/
 
-    - name: Compilar la ROM
+    - name: Compilar la ROM MistOS
       run: |
-        echo "Pronto iniciaremos el brunch/lunch aquí"
+        cd ~/mistos
+        . build/envsetup.sh
+        lunch mist_r8q-userdebug
+        mka bacon -j$(nproc --all)
